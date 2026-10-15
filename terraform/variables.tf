@@ -20,4 +20,7 @@ variable "ssh_key" {
   type        = string
   default     = "akamai-assessment"
 }
-
+variable "ssh_allowed_cidr" {
+  description = "CIDR allowed to ssh into the server (public ip/32)"
+  type        = string
+}
