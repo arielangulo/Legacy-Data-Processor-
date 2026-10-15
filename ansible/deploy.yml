@@ -17,3 +17,21 @@
         shell: /usr/sbin/nologin
         create_home: false
         state: present
+
+    - name: Allow SSH
+      community.general.ufw:
+        rule: allow
+        port: "22"
+        proto: tcp
+
+    - name: Allow application port 8080
+      community.general.ufw:
+        rule: allow
+        port:  "8080"
+        proto: tcp
+
+    - name: Enable UFW and deny incoming by default
+      community.general.ufw:
+        state:  enabled
+        policy:  deny
+        direction: incoming
