@@ -127,6 +127,7 @@
         src: templates/nginx.conf.j2
         dest: /opt/dataproc/nginx.conf
         mode: "0644"
+      notify: Restart dataproc
 
     - name: Install custom dataproc service
       ansible.builtin.template:
