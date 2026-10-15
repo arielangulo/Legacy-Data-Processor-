@@ -66,3 +66,9 @@
           - docker-compose-plugin
         state: present
         update_cache: true
+
+    - name: Make sure Docker is running and available
+      ansible.builtin.systemd:
+        name: docker
+        enabled: true
+        state: started
