@@ -1,0 +1,23 @@
+services:
+  python-api:
+    build:
+      context: /opt/dataproc/app
+      dockerfile: Dockerfile
+    container_name: dataproc-api
+    user: "2048:2048"
+    expose:
+      - "5000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:stable
+    container_name: dataproc-nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - /opt/dataproc/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /var/log/nginx/custom-access.log:/var/log/nginx/custom-access.log
+    depends_on:
+      - python-api
+    restart: unless-stopped
+

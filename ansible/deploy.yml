@@ -114,3 +114,37 @@
         mode: "0660"
         modification_time: preserve
         access_time: preserve
+
+    - name: Install docker-compose.yml
+      ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: /opt/dataproc/docker-compose.yml
+        mode: "0644"
+      notify: Restart dataproc
+
+    - name: Install Nginx config
+      ansible.builtin.template:
+        src: templates/nginx.conf.j2
+        dest: /opt/dataproc/nginx.conf
+        mode: "0644"
+
+    - name: Install custom dataproc service
+      ansible.builtin.template:
+        src: templates/dataproc.service.j2
+        dest: /etc/systemd/system/dataproc.service
+        mode: "0644"
+      notify: Restart dataproc
+
+    - name: Enable and start custom dataproc.service
+      ansible.builtin.systemd:
+        name: dataproc
+        daemon_reload: true
+        enabled: true
+        state: started
+
+  handlers:
+    - name: Restart dataproc
+      ansible.builtin.systemd:
+        name: dataproc
+        state: restarted
+        daemon_reload: true
