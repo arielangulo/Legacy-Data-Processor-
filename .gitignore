@@ -26,3 +26,4 @@ override.tf.json
 
 #Ansible 
 ansible/inventory.ini
+__pycache__/
