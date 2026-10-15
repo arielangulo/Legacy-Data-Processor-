@@ -72,3 +72,27 @@
         name: docker
         enabled: true
         state: started
+
+    - name: Application directory
+      ansible.builtin.file:
+        path: /opt/dataproc/app
+        state: directory
+        owner: dataproc
+        group: dataproc
+        mode: "0755"
+
+    - name: Copy application files inside the directory
+      ansible.builtin.copy:
+        src: app/
+        dest: /opt/dataproc/app/
+        owner: dataproc
+        group: dataproc
+        mode: preserve
+
+    - name: Make entrypoint.sh executable with correct permissions
+      ansible.builtin.file:
+        path: /opt/dataproc/app/entrypoint.sh
+        owner: dataproc
+        group: dataproc
+        mode: "0755"
+        state: file
