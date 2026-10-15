@@ -23,3 +23,6 @@ override.tf.json
 # Sensitive local files
 .env
 *.pem
+
+#Ansible 
+ansible/inventory.ini
