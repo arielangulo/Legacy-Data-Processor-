@@ -96,3 +96,21 @@
         group: dataproc
         mode: "0755"
         state: file
+
+    - name: Create Nginx log directory
+      ansible.builtin.file:
+        path: /var/log/nginx
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create the custom Nginx access log file in the log directory as required
+      ansible.builtin.file:
+        path: /var/log/nginx/custom-access.log
+        state: touch
+        owner: root
+        group: dataproc
+        mode: "0660"
+        modification_time: preserve
+        access_time: preserve
